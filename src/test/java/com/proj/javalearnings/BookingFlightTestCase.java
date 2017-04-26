@@ -1,11 +1,11 @@
 package com.proj.javalearnings;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
-
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -18,83 +18,62 @@ import com.proj.utils.*;
 
 public class BookingFlightTestCase extends BaseSetup {
 
-	
 	WebDriver driver;
-	utils webutil = new utils();
-	
-	
-	//HomePage homePage;
-	
-	//String url="https://www.southwest.com/";
-	 @BeforeTest
-	 public void setup() throws IOException{
-	    driver = selectBrowser("chrome",Constants.HOMEPAGE_URL);
-	  //This initElements method will create all WebElements
-	 
+	utils webUtil = new utils();
 
-	 
-        
-	    }
-	
+	@BeforeTest
+	public void setup() throws IOException {
+		driver = selectBrowser("chrome", Constants.HOMEPAGE_URL);
+	}
 
-	    @Test
-	    public void test_Home_Page()
-	    {
-	    	//Create home Page object
-	    	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-		 //homePage = new HomePage(driver);	
-	    	//Verify login page title
-	    //String homePageTitle = homePage.getPageTitle().getText();
-	    //System.out.println("The page title is:"+homePageTitle);
-	    //Assert.assertTrue(homePageTitle.contains("Southwest"));
-	    System.out.println(homePage.getTabName().getText());
-	    
-	    //setting depature location
-	    homePage.setCityDeparture(Constants.DEPARTURE_LOC);
-	    
-	    //setting arrival location
-	    homePage.setCityArrival(Constants.ARRIVAL_LOC);
-	    
-	    //set current date
-	    homePage.setDepatureDate(webutil.dateNow());
-	    
-	    //set return date
-	    homePage.setReturnDate(webutil.datePlusWeek());
-	    
-//	    String departureCity = "IAD";
-//	    homePage.setCityDeparture(departureCity);
-//	    
-//	    String arrivalCity = "LAX";
-//	    homePage.setCityDeparture(arrivalCity);
-//	       
-//	    
-	 	homePage.searchFlight();
-	 	
-	 	homePage.waitForElement("outbound_results", driver);
-	 	
+	@Test
+	public void test_Home_Page() {
+		// Create home Page object
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		SelectFlightAndPricePage selectFlight = PageFactory.initElements(driver, SelectFlightAndPricePage.class);
+		String currentPage = homePage.getTabName().getText();
+		System.out.println("Current Location is" + currentPage);
+		Assert.assertTrue(StringUtils.containsIgnoreCase(currentPage, "flight"));
 
-	 	
-	 	
-	 	
-	 	// Validate Search Results
-	 	
-	 	System.out.println(homePage.getSearch_results().getText());
-	 	Assert.assertTrue(homePage.getSearch_results().getText().contains("Austin, TX to New York/Newark, NJ"));
-	 	
-	 	homePage.waitForElement("Out1C", driver);
-	 	
-	 	//select inbound flight
-	 	homePage.Outbound_flight();
-	 	//select outbounf flight
-	 	homePage.Inbound_flight();
-	 	//select further continue
-	 	homePage.Flight_continue();
-	 	
-	 	webutil.sendEmail(homePage.get_final_page_title(), homePage.get_flight_price());
-	 	
-	    
-	    }
-	    
-	    
-	  
+		// setting depature location
+		System.out.println("Selecting Depature City");
+		homePage.setCityDeparture(Constants.DEPARTURE_LOC);
+
+		// setting arrival location
+		System.out.println("Selecting Arrival City");
+		homePage.setCityArrival(Constants.ARRIVAL_LOC);
+
+		// set current date
+		System.out.println("Setting Departure Date");
+		homePage.setDepatureDate(webUtil.dateNow());
+
+		// set return date
+		System.out.println("Setting Return Date");
+		homePage.setReturnDate(webUtil.datePlusWeek());
+
+		System.out.println("Look for flights details");
+		homePage.searchFlight();
+
+		// Validate Search Results
+		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+		System.out.println("Look for flight selection page");
+		System.out.println(selectFlight.getSearch_results().getText());
+		Assert.assertTrue(selectFlight.getSearch_results().getText().contains("Select Departing Flight:"));
+
+		// select OutBound flight
+		System.out.println("selecting outbound flight");
+		selectFlight.Outbound_flight();
+
+		// select inbounds flight
+		System.out.println("selecting inbound flight");
+		selectFlight.Inbound_flight();
+
+		// select further continue
+		System.out.println("Confirmed the flight and click continue");
+		selectFlight.Flight_continue();
+
+		webUtil.sendEmail(selectFlight.get_final_page_title(), selectFlight.get_flight_price());
+
+	}
+
 }

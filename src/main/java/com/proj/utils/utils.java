@@ -1,10 +1,8 @@
 package com.proj.utils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -19,19 +17,17 @@ public class utils {
 
 	public String dateNow() {
 
-		LocalDate current_date = LocalDate.now().plusDays(2);
+		LocalDate current_date = LocalDate.now().plusDays(3);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd");
-
-		System.out.println("current Date:" + current_date.format(formatter));
+		//System.out.println("current Date:" + current_date.format(formatter));
 		return current_date.format(formatter);
 	}
 
 	public String datePlusWeek() {
 
-		LocalDate date = LocalDate.now().plusDays(2).plusWeeks(1);
+		LocalDate date = LocalDate.now().plusDays(3).plusWeeks(1);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd");
-
-		System.out.println("Current date + week:" + date.format(formatter));
+		//System.out.println("Current date + week:" + date.format(formatter));
 		return date.format(formatter);
 	}
 
