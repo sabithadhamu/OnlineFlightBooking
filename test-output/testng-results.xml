@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="39594" started-at="2017-04-26T02:44:30Z" finished-at="2017-04-26T02:45:10Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="39594" started-at="2017-04-26T02:44:30Z" finished-at="2017-04-26T02:45:10Z">
+      <class name="com.proj.javalearnings.BookingFlightTestCase">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.proj.javalearnings.BookingFlightTestCase@343f4d3d]" name="setup" is-config="true" duration-ms="16602" started-at="2017-04-25T22:44:30Z" finished-at="2017-04-25T22:44:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="test_Home_Page()[pri:0, instance:com.proj.javalearnings.BookingFlightTestCase@343f4d3d]" name="test_Home_Page" duration-ms="22314" started-at="2017-04-25T22:44:47Z" finished-at="2017-04-25T22:45:09Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test_Home_Page -->
+        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.proj.javalearnings.BookingFlightTestCase@343f4d3d]" name="closeBrowser" is-config="true" duration-ms="622" started-at="2017-04-25T22:45:09Z" finished-at="2017-04-25T22:45:10Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+      </class> <!-- com.proj.javalearnings.BookingFlightTestCase -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
